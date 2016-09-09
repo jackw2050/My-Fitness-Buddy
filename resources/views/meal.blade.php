@@ -9,7 +9,7 @@
                         <input type="hidden" name="_token" value="ja05e48U1pdidIQrzIbyxYMu6PF4U146aaaiAdoa">
                         <div class="form-group row">
                             <label for="name" class="col-sm-1 form-control-label">Name</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-9">
                                 <input name="name" type="text" class="form-control" placeholder="Meal Name" required>
                             </div>
                             <div class="col-sm-1">
