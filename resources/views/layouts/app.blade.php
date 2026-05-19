@@ -50,7 +50,7 @@
                     <li><a href="{{ url('/home') }}">Home</a></li>
                 </ul>
                     <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/meals') }}">Meals</a></li>
+                    <li><a href="{{ url('/meal') }}">Meals</a></li>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/meal') }}">New Meal</a></li>

@@ -5,8 +5,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">New Meal</div>
                 <div class="panel-body">
-                    <form action="/users/19/meals" method="POST">
-                        <input type="hidden" name="_token" value="ja05e48U1pdidIQrzIbyxYMu6PF4U146aaaiAdoa">
+                    <form action="{{ url('/meal') }}" method="POST">
+                        {{ csrf_field() }}
                         <div class="form-group row">
                             <label for="name" class="col-sm-1 form-control-label">Name</label>
                             <div class="col-sm-9">
@@ -21,6 +21,19 @@
                     </form>
                 </div>
             </div>
+
+            @if(isset($meals) && count($meals) > 0)
+            <div class="panel panel-default">
+                <div class="panel-heading">Your Meals</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        @foreach($meals as $meal)
+                            <li class="list-group-item">{{ $meal->name }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>

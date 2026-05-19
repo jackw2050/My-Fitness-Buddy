@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Food extends Model
 {
-        public function food(){
-    	return $this->belongsTo('Meal');
-
+    public function meal()
+    {
+        return $this->belongsTo('App\Meals');
     }
 }

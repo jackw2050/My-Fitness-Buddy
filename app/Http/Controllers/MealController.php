@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\Meals;
+use Auth;
 
 class MealController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index()
     {
-        return view('meal');
-       // return Meal::ofMeal($user_id)->get();
+        $meals = Auth::user()->meals;
+        return view('meal', compact('meals'));
     }
 
     /**
@@ -37,7 +48,16 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+        ]);
+
+        Meals::create([
+            'name' => $request->name,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return redirect('/meal');
     }
 
     /**

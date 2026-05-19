@@ -27,9 +27,9 @@ class User extends Authenticatable
 
    
 
-        public function meals(){
-        return $this->hasMany('Meal');
-
+    public function meals()
+    {
+        return $this->hasMany('App\Meals');
     }
 
 }

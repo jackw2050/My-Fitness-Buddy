@@ -11,13 +11,14 @@ class Meals extends Model
         'name', 'user_id',
     ];
 
-    public function meal(){
-    	return $this->hasMany('Food');
+    public function foods()
+    {
+        return $this->hasMany('App\Food');
     }
 
-
-    public function user(){
-    	return $this->belongsTo('user', 'name', 'user_id', 'id');
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
    // public function scopeOfMeal($query,$user_id){

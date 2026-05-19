@@ -8,72 +8,65 @@
                 <div class="panel-heading">Add a food</div>
 
                 <div class="panel-body">
-                   
 
-                <form action="/users/19/meals" method="POST">
-                <input type="hidden" name="_token" value="ja05e48U1pdidIQrzIbyxYMu6PF4U146aaaiAdoa">
-    
+                <form action="{{ url('/food') }}" method="POST">
+                    {{ csrf_field() }}
 
-
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 form-control-label">Food name</label>
-                    <div class="col-sm-10">
-                        <input name="name" 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Food Name"
-                        required
-                        >
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 form-control-label">Protein</label>
+                    <div class="form-group row">
+                        <label for="food_name" class="col-sm-2 form-control-label">Food name</label>
                         <div class="col-sm-10">
-                        <input name="protein" 
-                        type="number" 
-                        class="form-control" 
-                        placeholder="Protein/g"
-                        required
-                        >
+                            <input name="food_name"
+                            type="text"
+                            class="form-control"
+                            placeholder="Food Name"
+                            required
+                            >
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 form-control-label">Carbohydrates</label>
-                    <div class="col-sm-10">
-                        <input name="carbohydrates" 
-                        type="number" 
-                        class="form-control" 
-                        placeholder="Carbohydrates/g"
-                        required
-                        >
+
+                    <div class="form-group row">
+                        <label for="protein" class="col-sm-2 form-control-label">Protein</label>
+                        <div class="col-sm-10">
+                            <input name="protein"
+                            type="number"
+                            class="form-control"
+                            placeholder="Protein/g"
+                            required
+                            >
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 form-control-label">Fat</label>
-                    <div class="col-sm-10">
-                        <input name="fat" 
-                        type="number" 
-                        class="form-control" 
-                        placeholder="Fat"
-                        required
-                        >
+                    <div class="form-group row">
+                        <label for="carbs" class="col-sm-2 form-control-label">Carbohydrates</label>
+                        <div class="col-sm-10">
+                            <input name="carbs"
+                            type="number"
+                            class="form-control"
+                            placeholder="Carbohydrates/g"
+                            required
+                            >
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-sm-2">
-                    <button type="submit" value="submit" class="btn btn-primary">
-                    Submit
-                    </button>
-                </div>
-        
+                    <div class="form-group row">
+                        <label for="fat" class="col-sm-2 form-control-label">Fat</label>
+                        <div class="col-sm-10">
+                            <input name="fat"
+                            type="number"
+                            class="form-control"
+                            placeholder="Fat/g"
+                            required
+                            >
+                        </div>
+                    </div>
 
-        </form>   <!-- form -->
+                    <div class="col-sm-2">
+                        <button type="submit" value="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
 
-
-
-
+                </form>
 
                 </div>  <!-- panel-body -->
             </div>  <!-- panel -->
