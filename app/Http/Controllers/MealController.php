@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Meals;
+use App\Meal;
 use Auth;
 
 class MealController extends Controller
@@ -37,7 +37,7 @@ class MealController extends Controller
      */
     public function create()
     {
-        //
+        return view('meal');
     }
 
     /**
@@ -52,12 +52,12 @@ class MealController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        Meals::create([
+        Meal::create([
             'name' => $request->name,
             'user_id' => Auth::user()->id,
         ]);
 
-        return redirect('/meal');
+        return redirect('/meal')->with('status', 'Meal created successfully!');
     }
 
     /**
@@ -68,7 +68,13 @@ class MealController extends Controller
      */
     public function show($id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('meal_show', compact('meal'));
     }
 
     /**
@@ -79,7 +85,13 @@ class MealController extends Controller
      */
     public function edit($id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('meal_edit', compact('meal'));
     }
 
     /**
@@ -91,7 +103,21 @@ class MealController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+        ]);
+
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        $meal->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect('/meal')->with('status', 'Meal updated successfully!');
     }
 
     /**
@@ -102,6 +128,14 @@ class MealController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        $meal->delete();
+
+        return redirect('/meal')->with('status', 'Meal deleted successfully!');
     }
 }

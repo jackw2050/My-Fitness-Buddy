@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Meals extends Model
+class Meal extends Model
 {
-
-	protected $fillable = [
+    protected $fillable = [
         'name', 'user_id',
     ];
 
@@ -20,9 +19,4 @@ class Meals extends Model
     {
         return $this->belongsTo('App\User');
     }
-
-   // public function scopeOfMeal($query,$user_id){
-   // 	return $query->where('user_id' , $user_id);
-
-  //  }
 }
