@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Food extends Model
 {
-        public function food(){
-    	return $this->belongsTo('Meal');
+    protected $table = 'food';
 
+    protected $fillable = [
+        'meal_id', 'food_name', 'protein', 'carbs', 'fat',
+    ];
+
+    public function meal()
+    {
+        return $this->belongsTo('App\Meal');
     }
 }

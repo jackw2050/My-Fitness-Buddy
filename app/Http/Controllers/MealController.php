@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\Meal;
+use Auth;
 
 class MealController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index()
     {
-        return view('meal');
-       // return Meal::ofMeal($user_id)->get();
+        $meals = Auth::user()->meals;
+        return view('meal', compact('meals'));
     }
 
     /**
@@ -26,7 +37,7 @@ class MealController extends Controller
      */
     public function create()
     {
-        //
+        return view('meal');
     }
 
     /**
@@ -37,7 +48,16 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+        ]);
+
+        Meal::create([
+            'name' => $request->name,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return redirect('/meal')->with('status', 'Meal created successfully!');
     }
 
     /**
@@ -48,7 +68,13 @@ class MealController extends Controller
      */
     public function show($id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('meal_show', compact('meal'));
     }
 
     /**
@@ -59,7 +85,13 @@ class MealController extends Controller
      */
     public function edit($id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('meal_edit', compact('meal'));
     }
 
     /**
@@ -71,7 +103,21 @@ class MealController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+        ]);
+
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        $meal->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect('/meal')->with('status', 'Meal updated successfully!');
     }
 
     /**
@@ -82,6 +128,14 @@ class MealController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $meal = Meal::findOrFail($id);
+
+        if ($meal->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized');
+        }
+
+        $meal->delete();
+
+        return redirect('/meal')->with('status', 'Meal deleted successfully!');
     }
 }
